@@ -18,9 +18,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> {
             try {
                 // Permit all requests
-                requests.anyRequest().permitAll()
+                //requests.anyRequest().permitAll()
                 // Disable CSRF protection
-                        .and().csrf().disable();
+                requests.anyRequest().permitAll()
+                        .and().cors().disable()
+                        .csrf().disable();
             }
             catch (Exception e) {
                 throw new RuntimeException(e);
