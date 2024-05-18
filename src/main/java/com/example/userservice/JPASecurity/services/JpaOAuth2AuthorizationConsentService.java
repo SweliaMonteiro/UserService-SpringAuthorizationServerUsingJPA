@@ -2,7 +2,6 @@ package com.example.userservice.JPASecurity.services;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import com.example.userservice.JPASecurity.models.AuthorizationConsent;
 import com.example.userservice.JPASecurity.repositories.AuthorizationConsentRepository;
 import org.springframework.dao.DataRetrievalFailureException;
@@ -15,6 +14,9 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+
+// Copy this class from How-to: Implement core services with JPA documentation: https://docs.spring.io/spring-authorization-server/reference/guides/how-to-jpa.html
 
 @Component
 public class JpaOAuth2AuthorizationConsentService implements OAuth2AuthorizationConsentService {

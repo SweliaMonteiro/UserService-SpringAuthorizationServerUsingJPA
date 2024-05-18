@@ -1,24 +1,33 @@
 package com.example.userservice.JPASecurity.models;
 
 import java.time.Instant;
-
 import jakarta.persistence.*;
+
+
+// Copy this class from How-to: Implement core services with JPA documentation: https://docs.spring.io/spring-authorization-server/reference/guides/how-to-jpa.html
 
 @Entity
 @Table(name = "`authorization`")
 public class Authorization {
+
     @Id
     @Column
     private String id;
+
     private String registeredClientId;
+
     private String principalName;
+
     private String authorizationGrantType;
+
     @Column(length = 1000)
-    @Lob
+    @Lob // Annotate with @Lob as it throws an error when the length is greater than 255, hence instead of storing varchar in the database, it stores the data in the form of a large object
     private String authorizedScopes;
+
     @Column(length = 4000)
     @Lob
     private String attributes;
+
     @Column(length = 500)
     @Lob
     private String state;
@@ -26,19 +35,27 @@ public class Authorization {
     @Column(length = 4000)
     @Lob
     private String authorizationCodeValue;
+
     private Instant authorizationCodeIssuedAt;
+
     private Instant authorizationCodeExpiresAt;
+
     private String authorizationCodeMetadata;
 
     @Column(length = 4000)
     @Lob
     private String accessTokenValue;
+
     private Instant accessTokenIssuedAt;
+
     private Instant accessTokenExpiresAt;
+
     @Column(length = 2000)
     @Lob
     private String accessTokenMetadata;
+
     private String accessTokenType;
+
     @Column(length = 1000)
     @Lob
     private String accessTokenScopes;
@@ -46,8 +63,11 @@ public class Authorization {
     @Column(length = 4000)
     @Lob
     private String refreshTokenValue;
+
     private Instant refreshTokenIssuedAt;
+
     private Instant refreshTokenExpiresAt;
+
     @Column(length = 2000)
     @Lob
     private String refreshTokenMetadata;
@@ -55,11 +75,15 @@ public class Authorization {
     @Column(length = 4000)
     @Lob
     private String oidcIdTokenValue;
+
     private Instant oidcIdTokenIssuedAt;
+
     private Instant oidcIdTokenExpiresAt;
+
     @Column(length = 2000)
     @Lob
     private String oidcIdTokenMetadata;
+
     @Column(length = 2000)
     @Lob
     private String oidcIdTokenClaims;
@@ -67,8 +91,11 @@ public class Authorization {
     @Column(length = 4000)
     @Lob
     private String userCodeValue;
+
     private Instant userCodeIssuedAt;
+
     private Instant userCodeExpiresAt;
+
     @Column(length = 2000)
     @Lob
     private String userCodeMetadata;
@@ -76,8 +103,11 @@ public class Authorization {
     @Column(length = 4000)
     @Lob
     private String deviceCodeValue;
+
     private Instant deviceCodeIssuedAt;
+
     private Instant deviceCodeExpiresAt;
+
     @Column(length = 2000)
     @Lob
     private String deviceCodeMetadata;

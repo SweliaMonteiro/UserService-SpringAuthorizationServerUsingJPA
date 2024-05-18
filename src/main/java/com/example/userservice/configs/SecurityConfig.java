@@ -12,15 +12,15 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     // This method creates a SecurityFilterChain bean that configures the security of the application
+    // All requests coming to the application will be passed through this SecurityFilterChain
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // Configure the security of the application
         http.authorizeHttpRequests((requests) -> {
             try {
                 // Permit all requests
-                //requests.anyRequest().permitAll()
-                // Disable CSRF protection
                 requests.anyRequest().permitAll()
+                // Disable CSRF protection
                         .and().cors().disable()
                         .csrf().disable();
             }

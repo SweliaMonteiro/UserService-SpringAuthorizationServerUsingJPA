@@ -1,13 +1,14 @@
 package com.example.userservice.JPASecurity.repositories;
 
 import java.util.Optional;
-
-
 import com.example.userservice.JPASecurity.models.Authorization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+
+// Copy this interface from How-to: Implement core services with JPA documentation: https://docs.spring.io/spring-authorization-server/reference/guides/how-to-jpa.html
 
 @Repository
 public interface AuthorizationRepository extends JpaRepository<Authorization, String> {

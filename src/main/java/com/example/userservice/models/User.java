@@ -19,6 +19,7 @@ public class User extends BaseModel {
 
     private String hashedPassword;
 
+    // Eager fetch type is used to load all roles when user is loaded else it will throw error when we try to log in using user credentials stored in DB as it will not load roles to add authorities to custom UserDetails
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 

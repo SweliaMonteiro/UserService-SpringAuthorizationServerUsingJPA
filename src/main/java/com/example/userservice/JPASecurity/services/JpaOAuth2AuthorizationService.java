@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
-
 import com.example.userservice.JPASecurity.models.Authorization;
 import com.example.userservice.JPASecurity.repositories.AuthorizationRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -33,6 +31,9 @@ import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2A
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+
+// Copy this class from How-to: Implement core services with JPA documentation: https://docs.spring.io/spring-authorization-server/reference/guides/how-to-jpa.html
 
 @Component
 public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService {

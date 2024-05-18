@@ -8,15 +8,12 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import com.example.userservice.JPASecurity.models.CustomUserDetails;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -25,28 +22,19 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+
+
+// Copy this class from the Spring Authorization Server documentation: https://docs.spring.io/spring-authorization-server/reference/getting-started.html
 
 
 @Configuration
@@ -91,45 +79,49 @@ public class SecurityConfiguration {
     }
 
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    // @Autowired
+    // private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails userDetails = User.builder()
-//                .username("user")
-//                // Use BCrypt password encoder strategy to encode the "password" as default encoder strategy is BCrypt
-//                .password(bCryptPasswordEncoder.encode("password"))
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(userDetails);
-//    }
+    /*
+    ----- COMMENT BELOW AS WE WILL BE CREATING CUSTOM USER DETAILS SERVICE TO ONBOARD MORE THAN 1 USER AND STORE IN DB -----
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails userDetails = User.builder()
+                .username("user")
+                // Use BCrypt password encoder strategy to encode the "password" as default encoder strategy is BCrypt
+                .password(bCryptPasswordEncoder.encode("password"))
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(userDetails);
+    } */
 
 
-//    @Bean
-//    public RegisteredClientRepository registeredClientRepository() {
-//        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//                // Use "oidc-client" as client ID
-//                .clientId("oidc-client")
-//                // Use BCrypt password encoder strategy to encode the "clientSecret" as default encoder strategy is BCrypt
-//                .clientSecret(bCryptPasswordEncoder.encode("secret"))
-//                // Authorization code flow and refresh token grant type
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//                // Redirect URI and post logout redirect URI are used to redirect the user to the client after login and logout
-//                .redirectUri("https://oauth.pstmn.io/v1/callback")
-//                .postLogoutRedirectUri("https://oauth.pstmn.io/v1/callback")
-//                // Scope provide the access to user profile information to the client
-//                .scope(OidcScopes.OPENID)
-//                .scope(OidcScopes.PROFILE)
-//                .scope("ADMIN")
-//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-//                .build();
-//
-//        return new InMemoryRegisteredClientRepository(oidcClient);
-//    }
+    /*
+    ----- COMMENT BELOW AS WE WILL BE CREATING CUSTOM REGISTERED CLIENT REPOSITORY TO REGISTER MORE THAN 1 CLIENT AND STORE IN DB -----
+    @Bean
+    public RegisteredClientRepository registeredClientRepository() {
+        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                // Use "oidc-client" as client ID
+                .clientId("oidc-client")
+                // Use BCrypt password encoder strategy to encode the "clientSecret" as default encoder strategy is BCrypt
+                .clientSecret(bCryptPasswordEncoder.encode("secret"))
+                // Authorization code flow and refresh token grant type
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                // Redirect URI and post logout redirect URI are used to redirect the user to the client after login and logout
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
+                .postLogoutRedirectUri("https://oauth.pstmn.io/v1/callback")
+                // Scope provide the access to user profile information to the client
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .scope("ADMIN")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+                .build();
+
+        return new InMemoryRegisteredClientRepository(oidcClient);
+    } */
 
 
     @Bean
@@ -172,19 +164,22 @@ public class SecurityConfiguration {
     }
 
 
+    // To customize the JWT token, add the following bean from documentation: https://docs.spring.io/spring-authorization-server/reference/guides/how-to-custom-claims-authorities.html
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
         return (context) -> {
             if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
                 context.getClaims().claims((claims) -> {
-                    // context.getPrincipal() ---> this might return UserDetails object
+                    // context.getPrincipal() ---> This returns UserDetails object
                     Set<String> roles = AuthorityUtils.authorityListToSet(context.getPrincipal().getAuthorities())
                             .stream()
                             .map(c -> c.replaceFirst("^ROLE_", ""))
                             .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
                     claims.put("roles", roles);
 
-                    // add user id to token
+                    // To add userId to the JWT token, add userId attribute to the CustomUserDetails class
+                    // context.getPrincipal().getPrincipal() ---> This returns CustomUserDetails object
+                    // Store the userId in the JWT token by adding userId attribute to the claims as key-value pair
                     long userId = ((CustomUserDetails) context.getPrincipal().getPrincipal()).getUserId();
                     claims.put("userId", userId);
                 });

@@ -8,8 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class UserServiceConfigs {
 
-    // @Bean annotation tells Spring that a method annotated with @Bean will return an object that should be
-    // registered as a bean in the Spring application context
+    // Create this BCryptPasswordEncoder bean to encode passwords else it will throw an error saying no default encoder found when we try to log in using User credentials stored in DB
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

@@ -2,8 +2,10 @@ package com.example.userservice.JPASecurity.models;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import jakarta.persistence.*;
+
+
+// Copy this class from How-to: Implement core services with JPA documentation: https://docs.spring.io/spring-authorization-server/reference/guides/how-to-jpa.html
 
 @Entity
 @Table(name = "`authorizationConsent`")

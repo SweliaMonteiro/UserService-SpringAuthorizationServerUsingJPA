@@ -3,17 +3,19 @@ package com.example.userservice.JPASecurity.models;
 import com.example.userservice.models.Role;
 import com.example.userservice.models.User;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 
-@JsonDeserialize
+// Create a CustomUserDetails class to add custom user details to the UserDetails
+
+@JsonDeserialize  // To deserialize the JSON to the CustomUserDetails class object when the JSON is received from the client over the network otherwise it will throw an error
+@NoArgsConstructor  // To create a no-argument constructor in the CustomUserDetails class else it will throw an error
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     private String username;
@@ -22,13 +24,10 @@ public class CustomUserDetails implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    private Collection<CustomGrantedAuthority> authorities;
-    private long userId;
+    private Collection<CustomGrantedAuthority> authorities;  // authorities means roles
+    private long userId;  // To create a custom user id
 
-    public CustomUserDetails() {
-    }
-
-
+    // To convert User to UserDetails
     public CustomUserDetails(User user) {
         this.username = user.getEmail();
         this.password = user.getHashedPassword();
@@ -37,7 +36,6 @@ public class CustomUserDetails implements UserDetails {
         this.credentialsNonExpired = true;
         this.enabled = true;
         this.userId = user.getId();
-
         this.authorities = new ArrayList<>();
         for(Role role : user.getRoles()) {
             this.authorities.add(new CustomGrantedAuthority(role));
@@ -80,7 +78,4 @@ public class CustomUserDetails implements UserDetails {
         return enabled;
     }
 
-    public long getUserId() {
-        return userId;
-    }
 }
