@@ -10,7 +10,7 @@ You are working on a project that requires you to create a user service. Impleme
 3. Modify SecurityConfiguration.java class to add multiple users, roles and clients to Database. 
 4. Integrate it with Database using JPA by adding the required services, models and repositories to fetch the user and client details using documentation: [How-to: Implement core services with JPA](https://docs.spring.io/spring-authorization-server/reference/guides/how-to-jpa.html)
 5. Create `CustomUserDetails` model to add custom user details from the database by implementing `UserDetails` Interface.
-6. Create `CustomGrantedAuthority` model to add custom authorities/roles to the `UserDetails` from the database by implementing GrantedAuthority Interface.
+6. Create `CustomGrantedAuthority` model to add custom authorities/roles to the UserDetails from the database by implementing `GrantedAuthority` Interface.
 7. Create `CustomUserDetailsService` by implementing `UserDetailsService` to load the user details using username/email from the database. Fetch the roles data of the user eagerly to create object of CustomUserDetails at the time of user authentication during login.
 8. Modify SecurityConfiguration.java to customize JWT token using documentation: [How-to: Add authorities as custom claims in JWT access tokens](https://docs.spring.io/spring-authorization-server/reference/guides/how-to-custom-claims-authorities.html)
 9. Add `roles` and `userId` to the JWT token as custom claims. 
