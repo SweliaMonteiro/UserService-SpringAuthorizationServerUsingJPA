@@ -18,7 +18,7 @@ class UserServiceApplicationTests {
     @Autowired
     private JpaRegisteredClientRepository jpaRegisteredClientRepository;
 
-
+    // Comment this code when running from AWS Cloud
     // Run only one time to add the sample registered client
     // Use the code from the SecurityConfig.java file which is used to create RegisteredClientRepository
     @Test
